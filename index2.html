@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Page with Dynamic Navigation Link Color</title>
+  <style>
+    body {
+      margin: 0;
+    }
+
+    .navigation {
+      position: sticky;
+      top: 0;
+      background-color: #f5f5f5;
+      z-index: 100;
+      padding: 10px;
+      display: flex;
+      justify-content: space-around;
+    }
+
+    .navigation a {
+      color: #555;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .navigation a:hover {
+      color: #aaa;
+    }
+
+    section {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .light-bg {
+      background-color: #f5f5f5;
+    }
+
+    .dark-bg {
+      background-color: #333;
+      color: #fff; /* Adaugat pentru a face textul vizibil pe fundal inchis */
+    }
+  </style>
+</head>
+<body>
+
+<div class="navigation">
+  <a href="#home">Home</a>
+  <a href="#about">About</a>
+  <a href="#blog">Blog</a>
+  <a href="#contact">Contact</a>
+</div>
+
+<section class="light-bg" id="home">
+  <h1>Home Section</h1>
+</section>
+
+<section class="dark-bg" id="about">
+  <h1>About Section</h1>
+</section>
+
+<section class="dark-bg" id="blog">
+  <h1>Blog Section</h1>
+</section>
+
+<section class="dark-bg" id="contact">
+  <h1>Contact Section</h1>
+</section>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const navigationLinks = document.querySelectorAll('.navigation a');
+
+    function updateNavigationColor() {
+      const activeSection = document.querySelector('section.dark-bg') || document.querySelector('section.light-bg');
+
+      navigationLinks.forEach(link => {
+        link.classList.remove('dark-bg');
+        link.classList.remove('light-bg');
+        link.classList.add(activeSection.classList.contains('dark-bg') ? 'dark-bg' : 'light-bg');
+      });
+    }
+
+    updateNavigationColor();
+
+    document.addEventListener('scroll', updateNavigationColor);
+  });
+</script>
+
+</body>
+</html>
